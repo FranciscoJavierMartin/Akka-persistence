@@ -15,3 +15,9 @@ Code from the Akka persistence course
     
 - Never call persist from futures
 - Shutdown of persistent actors
+
+## Multiple persist
+Persistence is based on messages. Think of persisting as sending a message to the journal.
+
+- Calls to ```persist()``` are executed in order
+- Handlers for subsequent ```persist()``` calls are executed in order
