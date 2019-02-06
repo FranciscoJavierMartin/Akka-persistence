@@ -48,3 +48,8 @@ Saving snapshots:
 - To use with stateless actors
     - use *context.become*  in *receiveCommand* (like normal actors).
     - also fine in *receiveRecover*, but the last handler will be used, and after a recovery.
+    
+## Persist asynchronous
+When to use *persistAsync* instead of *persist*:
+- Performance: The use of *persist* implies that received command must end so commands received after this must be stashed until this is resolved. For example, when high throughput is present.
+- When the order of persisted is important, *persist* guarantees the order.
