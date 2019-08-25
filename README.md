@@ -53,3 +53,28 @@ Saving snapshots:
 When to use *persistAsync* instead of *persist*:
 - Performance: The use of *persist* implies that received command must end so commands received after this must be stashed until this is resolved. For example, when high throughput is present.
 - When the order of persisted is important, *persist* guarantees the order.
+
+## Local stores
+### Local levelDB
+- file based key-value store
+- compaction
+- generally not suited for production
+```scala
+    akka.persistence.journal {
+        plugin = "akka.persistence.journal.leveldb"
+        leveldb.dir = "target/localStores/journal"
+        leveldb.compaction-intervals {
+            my-persistence-id = 1000
+            "*" = 5000
+        }
+    }
+```
+### Local snapshot store
+- file based
+- can write anything serializable
+```scala
+    akka.persistence.snapshot-store {
+        plugin = "akka.persistence.snapshot-store.local"
+        local.dir = "target/persisted/snapshots"
+    }
+```
